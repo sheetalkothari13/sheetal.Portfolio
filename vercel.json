@@ -1,11 +1,7 @@
 {
   "version": 2,
-  "builds": [
-    { "src": "sheetal_kothari_portfolio.html", "use": "@vercel/static" },
-    { "src": "assets/**", "use": "@vercel/static" }
-  ],
   "routes": [
-    { "src": "/", "dest": "/sheetal_kothari_portfolio.html" },
+    { "src": "/", "dest": "/index.html" },
     { "src": "^/(.*)$", "dest": "/$1" }
   ],
   "cleanUrls": true
