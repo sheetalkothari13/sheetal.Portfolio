@@ -527,6 +527,8 @@ footer{
       if(!entry.isIntersecting) return;
       const el = entry.target;
       const raw = el.textContent.trim();
+      const hasPercent = raw.includes('%');
+      const hasPlus = raw.includes('+');
       let target = raw.replace(/[+,]/g,'');
       let suffix = '';
       if(/B/.test(target)){ suffix='B'; target = target.replace(/B/,''); }
@@ -536,7 +538,13 @@ footer{
       function step(ts){
         const t = Math.min(1,(ts-start)/duration);
         const current = Math.floor(num * t);
-        el.textContent = suffix ? current + suffix + '+' : current + (raw.includes('+')?'+':'');
+        if (suffix) {
+          el.textContent = current + suffix + (hasPlus ? '+' : '');
+        } else if (hasPercent) {
+          el.textContent = current + '%';
+        } else {
+          el.textContent = current + (hasPlus ? '+' : '');
+        }
         if(t<1) requestAnimationFrame(step);
       }
       requestAnimationFrame(step);
