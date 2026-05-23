@@ -1,0 +1,9 @@
+{
+  "name": "sheetal-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "deploy": "vercel --prod",
+    "start": "echo 'Open sheetal_kothari_portfolio.html in browser'"
+  }
+}

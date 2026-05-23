@@ -1,0 +1,599 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sheetal Kothari — AI Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#050505;--surface:rgba(255,255,255,0.05);--border:rgba(255,255,255,0.08);
+  --accent:#ff7a18;--accent2:#ff9a4a;--white:#f5f5f5;--muted:#9ca3af;
+  --font:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth;font-family:var(--font)}
+body{background:var(--bg);color:var(--white);overflow-x:hidden}
+::selection{background:var(--accent);color:#000}
+
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(5,5,5,0.7);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:0 2rem;height:60px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{font-size:1rem;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.85rem;letter-spacing:0.05em;transition:color 0.12s}
+.nav-links a:hover{color:var(--accent)}
+
+/* Animated nav logo gradient */
+.nav-logo{background-size:200% 200%;animation:logoShift 4s linear infinite}
+@keyframes logoShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+/* Scroll progress bar */
+.scroll-progress{position:fixed;top:0;left:0;width:0%;height:2px;z-index:9999;background:linear-gradient(90deg,var(--accent),var(--accent2));box-shadow:0 0 20px rgba(255,122,24,0.6)}
+
+/* Cursor glow */
+.cursor-glow{width:260px;height:260px;border-radius:50%;position:fixed;pointer-events:none;z-index:0;background:radial-gradient(circle, rgba(255,122,24,0.18), transparent 70%);transform:translate(-50%,-50%);filter:blur(40px);transition:transform 0.04s linear,opacity 0.18s ease}
+
+section{padding:7rem 2rem}
+.container{max-width:1100px;margin:0 auto}
+.section-title{font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-0.03em;margin-bottom:4rem}
+.section-title span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* HERO */
+#hero{
+  min-height:100vh;padding:0;
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background-image:url('https://i.imgur.com/placeholder.jpg');
+  background-size:cover;background-position:center;
+  filter:blur(40px) brightness(0.15);
+  transform:scale(1.1);
+  animation:slowZoom 10s ease-in-out infinite alternate; 
+}
+@keyframes slowZoom{from{transform:scale(1.08)}to{transform:scale(1.12)}}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at center,transparent 30%,rgba(5,5,5,0.95) 80%);
+}
+.glow-orb{
+  position:absolute;border-radius:50%;pointer-events:none;opacity:0.15;
+  animation:floatGlow 5s ease-in-out infinite alternate;
+  filter:blur(60px);
+}
+.glow-orb.a{width:400px;height:400px;background:var(--accent);top:-10%;left:-10%;animation-delay:0s}
+.glow-orb.b{width:300px;height:300px;background:#ff4e50;bottom:5%;right:5%;animation-delay:1.2s}
+.glow-orb.c{width:200px;height:200px;background:#ffd89b;top:40%;left:60%;animation-delay:2s}
+@keyframes floatGlow{from{transform:translate(0,0) scale(1)}to{transform:translate(14px,20px) scale(1.06)}}
+.hero-content{position:relative;z-index:2;padding:2rem}
+.hero-portrait-wrap{
+  position:relative;width:220px;height:220px;margin:0 auto 2.5rem;
+}
+.hero-portrait-glow{
+  position:absolute;inset:-20px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,122,24,0.35),transparent 70%);
+  animation:pulseGlow 3s ease-in-out infinite alternate;
+}
+@keyframes pulseGlow{from{opacity:0.6;transform:scale(1)}to{opacity:0.95;transform:scale(1.03)}}
+.hero-portrait{
+  width:220px;height:220px;border-radius:50%;
+  object-fit:cover;object-position:top;
+  border:2px solid rgba(255,122,24,0.5);
+  position:relative;z-index:1;
+  animation:portraitZoom 6s ease-in-out infinite alternate;
+}
+@keyframes portraitZoom{from{transform:scale(1)}to{transform:scale(1.03)}}
+.hero-tagline{
+  font-size:0.8rem;letter-spacing:0.2em;color:var(--accent);
+  text-transform:uppercase;font-weight:600;margin-bottom:1rem;
+}
+.hero-name{
+  font-size:clamp(3rem,8vw,5.5rem);
+  font-weight:900;letter-spacing:-0.04em;line-height:1;margin-bottom:1.2rem;
+  background:linear-gradient(135deg,#fff 0%,#e2e2e2 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+
+  opacity:0;transform:translateY(30px);animation:heroReveal 2s cubic-bezier(.2,.9,.2,1) forwards;
+}
+@keyframes heroReveal{to{opacity:1;transform:translateY(0)}}
+.hero-subtitle{
+  font-size:clamp(0.95rem,2vw,1.15rem);color:var(--muted);
+  max-width:560px;margin:0 auto 2.5rem;line-height:1.7;
+}
+.cta-row{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;margin-bottom:3rem}
+.btn{
+  padding:0.75rem 1.75rem;border-radius:50px;font-size:0.9rem;font-weight:600;
+  cursor:pointer;transition:all 0.16s;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;letter-spacing:0.02em;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000;border:none;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,122,24,0.4)}
+.btn-glass{
+  background:var(--surface);color:var(--white);border:1px solid var(--border);
+  backdrop-filter:blur(10px);
+}
+.btn-glass:hover{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);transform:translateY(-2px)}
+.stats-row{
+  display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:center;margin-top:1rem;
+}
+.stat{text-align:center}
+.stat-num{font-size:1.4rem;font-weight:800;color:var(--accent);display:block}
+.stat-label{font-size:0.7rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase}
+
+/* ABOUT */
+#about{background:linear-gradient(180deg,var(--bg) 0%,rgba(255,122,24,0.03) 100%)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.about-text p{font-size:1.05rem;line-height:1.85;color:rgba(255,255,255,0.75);margin-bottom:1.2rem}
+.about-img{border-radius:20px;overflow:hidden;position:relative}
+.about-img img{width:100%;display:block;border-radius:20px;border:1px solid var(--border)}
+.about-img-glow{
+  position:absolute;inset:-1px;border-radius:20px;
+  background:linear-gradient(135deg,rgba(255,122,24,0.2),transparent 60%);
+  pointer-events:none;
+}
+
+/* EXPERIENCE */
+#experience{background:var(--bg)}
+.timeline{display:flex;flex-direction:column;gap:2rem}
+.exp-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;padding:2rem;position:relative;overflow:hidden;
+  transition:border-color 0.18s,transform 0.18s;
+}
+.exp-card:hover{border-color:rgba(255,122,24,0.4);transform:translateX(6px)}
+.exp-card::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,var(--accent),transparent);
+}
+.exp-role{font-size:1.25rem;font-weight:700;margin-bottom:0.3rem}
+.exp-meta{display:flex;gap:1.5rem;margin-bottom:1.2rem;flex-wrap:wrap}
+.exp-company{color:var(--accent);font-weight:600;font-size:0.9rem}
+.exp-date{color:var(--muted);font-size:0.85rem}
+.exp-list{list-style:none;display:flex;flex-direction:column;gap:0.6rem}
+.exp-list li{color:rgba(255,255,255,0.7);font-size:0.9rem;padding-left:1.2rem;position:relative;line-height:1.6}
+.exp-list li::before{content:'→';position:absolute;left:0;color:var(--accent);font-size:0.8rem}
+
+/* SKILLS */
+#skills{background:linear-gradient(180deg,rgba(255,122,24,0.03) 0%,var(--bg) 100%)}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem}
+.skill-cat{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;transition:border-color 0.3s}
+.skill-cat:hover{border-color:rgba(255,122,24,0.3)}
+.skill-cat-name{font-size:0.75rem;letter-spacing:0.15em;color:var(--accent);text-transform:uppercase;font-weight:700;margin-bottom:1rem}
+.skill-tags{display:flex;flex-wrap:wrap;gap:0.5rem}
+.tag{
+  background:rgba(255,255,255,0.06);
+  border:1px solid var(--border);
+  border-radius:6px;padding:0.3rem 0.7rem;font-size:0.78rem;color:rgba(255,255,255,0.7);
+  transition:all 0.18s ease;animation:tagFloat 3s ease-in-out infinite;
+}
+.tag:nth-child(odd){animation-delay:0.35s}
+@keyframes tagFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.tag:hover{background:rgba(255,122,24,0.15);border-color:rgba(255,122,24,0.4);color:var(--accent);transform:translateY(-6px) scale(1.05)}
+
+/* PROJECTS */
+#projects{background:var(--bg)}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+.proj-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;padding:1.75rem;transition:all 0.1s;position:relative;overflow:hidden;
+  display:block;text-decoration:none;color:inherit;cursor:pointer;
+}
+.proj-card::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  opacity:0;transition:opacity 0.1s;
+}
+.proj-card:hover{border-color:rgba(255,122,24,0.35);transform:translateY(-4px)}
+.proj-card:hover::after{opacity:1}
+.proj-title{font-size:1.2rem;font-weight:700;margin-bottom:0.2rem}
+.proj-sub{font-size:0.8rem;color:var(--accent);font-weight:600;letter-spacing:0.05em;margin-bottom:0.9rem}
+.proj-desc{font-size:0.88rem;color:rgba(255,255,255,0.65);line-height:1.7;margin-bottom:1.2rem}
+.proj-tags{display:flex;flex-wrap:wrap;gap:0.4rem}
+.proj-tag{
+  background:rgba(255,122,24,0.1);border:1px solid rgba(255,122,24,0.2);
+  color:var(--accent2);font-size:0.72rem;border-radius:6px;padding:0.2rem 0.6rem;
+}
+
+/* ACHIEVEMENTS */
+#achievements{background:linear-gradient(180deg,var(--bg) 0%,rgba(255,122,24,0.03) 100%)}
+.ach-list{display:flex;flex-direction:column;gap:1rem}
+.ach-item{
+  display:flex;align-items:flex-start;gap:1rem;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:1.25rem 1.5rem;
+  transition:border-color 0.3s;
+}
+.ach-item:hover{border-color:rgba(255,122,24,0.35)}
+.ach-icon{font-size:1.5rem;flex-shrink:0;margin-top:0.1rem}
+.ach-text{font-size:0.95rem;color:rgba(255,255,255,0.8);line-height:1.6}
+
+/* CONTACT */
+#contact{background:var(--bg);text-align:center}
+.contact-subtitle{font-size:1.05rem;color:var(--muted);margin:-2rem 0 3rem;max-width:500px;margin-left:auto;margin-right:auto}
+.contact-links{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center}
+.contact-link{
+  display:flex;align-items:center;gap:0.6rem;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:50px;padding:0.75rem 1.5rem;
+  text-decoration:none;color:var(--white);font-size:0.9rem;font-weight:500;
+  transition:all 0.1s;
+}
+.contact-link:hover{border-color:rgba(255,122,24,0.5);background:rgba(255,122,24,0.1);transform:translateY(-2px)}
+.contact-link svg{width:18px;height:18px;fill:var(--accent)}
+
+footer{
+  text-align:center;padding:2rem;
+  border-top:1px solid var(--border);
+  color:var(--muted);font-size:0.8rem;
+}
+
+/* SCROLL FADE */
+.fade-up{opacity:0;transform:translateY(20px);transition:all 1s cubic-bezier(.2,.9,.2,1)}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:768px){
+  .about-grid{grid-template-columns:1fr}
+  .about-img{display:none}
+  .nav-links{display:none}
+  .hero-portrait{width:170px;height:170px}
+  .hero-portrait-wrap{width:170px;height:170px}
+}
+
+/* AI grid background */
+.ai-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);background-size:60px 60px;mask-image:radial-gradient(circle at center, black 30%, transparent 85%);animation:gridMove 10s linear infinite;opacity:0.4}
+@keyframes gridMove{from{transform:translateY(0px)}to{transform:translateY(60px)}}
+
+/* Network canvas */
+#network{position:absolute;inset:0;width:100%;height:100%;opacity:0.35}
+
+</style>
+</style>
+</head>
+<body>
+  <div class="scroll-progress"></div>
+
+<nav>
+  <span class="nav-logo">SK</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <!-- <li><a href="#achievements">Achievements</a></li> -->
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="btn btn-glass" href="#" style="font-size:0.8rem;padding:0.5rem 1.2rem" target="_blank">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    Resume
+  </a>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <canvas id="network"></canvas>
+  <div class="ai-grid"></div>
+  <div class="hero-overlay"></div>
+  <div class="glow-orb a"></div>
+  <div class="glow-orb b"></div>
+  <div class="glow-orb c"></div>
+
+  <div class="hero-content">
+    <div class="hero-portrait-wrap">
+      <div class="hero-portrait-glow"></div>
+      <img class="hero-portrait" src="" alt="Sheetal Kothari" id="heroImg" />
+    </div>
+    <p class="hero-tagline">Building AI Systems That Feel Human</p>
+    <h1 class="hero-name">Sheetal Kothari</h1>
+    <p class="hero-subtitle">Founding Engineer @ Ropeli AI building production-grade AI systems, LLM workflows, and intelligent developer tools.</p>
+    <div class="cta-row">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="https://drive.google.com/file/d/1_rpn4rr3Nu9Dj42kVmDiGsvF2O86a7Ur/view?usp=sharing" class="btn btn-glass" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        View Resume
+      </a>
+      <a href="#contact" class="btn btn-glass">Contact Me</a>
+    </div>
+    <div class="stats-row">
+      <!-- <div class="stat"><span class="stat-num">100+</span><span class="stat-label">AI Apps Generated</span></div> -->
+      <div class="stat"><span class="stat-num">500+</span><span class="stat-label">DSA Problems</span></div>
+      <div class="stat"><span class="stat-num">1B+</span><span class="stat-label">Parameters Fine-tuned</span></div>
+      <div class="stat"><span class="stat-num">95%</span><span class="stat-label">Faster AI Processing</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <h2 class="section-title fade-up">About <span>Me</span></h2>
+    <div class="about-grid">
+      <div class="about-text fade-up">
+        <p>I'm an AI Engineer and Founding Engineer focused on building production-grade generative AI systems, developer tools, and intelligent automation platforms.</p>
+        <p>My work spans LLM integrations, voice AI, computer vision, AI infrastructure, and scalable backend systems using FastAPI, React, Kubernetes, and cloud-native workflows.</p>
+        <p>I enjoy transforming complex AI research into practical products that are fast, scalable, and user-focused.</p>
+      </div>
+      <div class="about-img fade-up">
+        <img src="" alt="Sheetal Kothari" id="aboutImg" />
+        <div class="about-img-glow"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="container">
+    <h2 class="section-title fade-up"><span>Experience</span></h2>
+    <div class="timeline">
+      <div class="exp-card fade-up">
+        <h3 class="exp-role">Founding Engineer</h3>
+        <div class="exp-meta">
+          <span class="exp-company">Ropeli AI</span>
+          <span class="exp-date">Jan 2026 — Present</span>
+        </div>
+        <ul class="exp-list">
+          <li>Built an AI-powered vibe coding platform converting natural language prompts into React Native applications</li>
+          <li>Integrated Claude API with 5,000+ templates for production-ready app generation</li>
+          <li>Built scalable infrastructure using FastAPI, React, Supabase, and Kubernetes CI/CD</li>
+        </ul>
+      </div>
+      <div class="exp-card fade-up">
+        <h3 class="exp-role">GenAI Intern</h3>
+        <div class="exp-meta">
+          <span class="exp-company">DomsGlobal</span>
+          <span class="exp-date">Oct 2025 — Present</span>
+        </div>
+        <ul class="exp-list">
+          <li>Built AI background removal systems using FastAPI and TensorFlow Lite</li>
+          <li>Reduced model size by 60% while maintaining high accuracy</li>
+          <li>Built serverless AI workflows using AWS Lambda and Firebase</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="container">
+    <h2 class="section-title fade-up">Tech <span>Stack</span></h2>
+    <div class="skills-grid">
+      <div class="skill-cat fade-up">
+        <p class="skill-cat-name">AI / ML</p>
+        <div class="skill-tags">
+          <span class="tag">Machine Learning</span><span class="tag">Deep Learning</span><span class="tag">Computer Vision</span><span class="tag">LLM Integration</span><span class="tag">Voice AI</span><span class="tag">NLP</span><span class="tag">Prompt Engineering</span>
+        </div>
+      </div>
+      <div class="skill-cat fade-up">
+        <p class="skill-cat-name">Generative AI</p>
+        <div class="skill-tags">
+          <span class="tag">LangChain</span><span class="tag">OpenAI API</span><span class="tag">Claude API</span><span class="tag">Hugging Face</span><span class="tag">Whisper</span><span class="tag">Ollama</span><span class="tag">Mistral</span><span class="tag">N8N</span>
+        </div>
+      </div>
+      <div class="skill-cat fade-up">
+        <p class="skill-cat-name">Backend</p>
+        <div class="skill-tags">
+          <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">Flask</span><span class="tag">REST APIs</span><span class="tag">Supabase</span><span class="tag">Firebase</span><span class="tag">SQL</span>
+        </div>
+      </div>
+      <div class="skill-cat fade-up">
+        <p class="skill-cat-name">Frontend</p>
+        <div class="skill-tags">
+          <span class="tag">React</span><span class="tag">Next.js</span><span class="tag">Tailwind CSS</span><span class="tag">JavaScript</span>
+        </div>
+      </div>
+      <div class="skill-cat fade-up">
+        <p class="skill-cat-name">Infrastructure</p>
+        <div class="skill-tags">
+          <span class="tag">Kubernetes</span><span class="tag">AWS Lambda</span><span class="tag">CI/CD</span><span class="tag">Serverless</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="container">
+    <h2 class="section-title fade-up">Featured <span>Projects</span></h2>
+    <div class="projects-grid">
+      <a class="proj-card fade-up" href="https://www.ropeliai.app/" target="_blank" rel="noopener noreferrer">
+        <h3 class="proj-title">Ropeli AI</h3>
+        <p class="proj-sub">AI Vibe Coding Platform</p>
+        <p class="proj-desc">Generative AI platform transforming natural language prompts into production-ready React Native applications.</p>
+        <div class="proj-tags"><span class="proj-tag">FastAPI</span><span class="proj-tag">React</span><span class="proj-tag">Claude API</span><span class="proj-tag">Supabase</span><span class="proj-tag">Kubernetes</span></div>
+      </a>
+      <a class="proj-card fade-up" href="https://github.com/sheetalkothari13/CloneVox.AI" target="_blank" rel="noopener noreferrer">
+        <h3 class="proj-title">CloneVox.AI</h3>
+        <p class="proj-sub">Real-Time Voice Cloning</p>
+        <p class="proj-desc">Mandarin voice cloning pipeline using SV2TTS, Tacotron2, and HiFi-GAN generating high-fidelity speech from short reference audio.</p>
+        <div class="proj-tags"><span class="proj-tag">PyTorch</span><span class="proj-tag">Tacotron2</span><span class="proj-tag">HiFi-GAN</span><span class="proj-tag">SV2TTS</span></div>
+      </a>
+      <a class="proj-card fade-up" href="https://github.com/sheetalkothari13/SignLang.AI" target="_blank" rel="noopener noreferrer">
+        <h3 class="proj-title">SignLang.AI</h3>
+        <p class="proj-sub">Sign Language Translation</p>
+        <p class="proj-desc">AI-driven sign language translation system using MediaPipe and Transformer-based NLP workflows.</p>
+        <div class="proj-tags"><span class="proj-tag">MediaPipe</span><span class="proj-tag">NLP</span><span class="proj-tag">Transformers</span><span class="proj-tag">Python</span></div>
+      </a>
+      <a class="proj-card fade-up" href="https://github.com/sheetalkothari13/Hindi-Speech-to-Text-Fine-tuning" target="_blank" rel="noopener noreferrer">
+        <h3 class="proj-title">Hindi Speech-to-Text</h3>
+        <p class="proj-sub">Whisper Fine-Tuning</p>
+        <p class="proj-desc">Fine-tuned Whisper models on Hindi datasets for end-to-end speech recognition with high accuracy.</p>
+        <div class="proj-tags"><span class="proj-tag">Whisper</span><span class="proj-tag">Hugging Face</span><span class="proj-tag">PyTorch</span><span class="proj-tag">NLP</span></div>
+      </a>
+      <a class="proj-card fade-up" href="https://github.com/sheetalkothari13/EDAwithLLM" target="_blank" rel="noopener noreferrer">
+        <h3 class="proj-title">EDAwithLLM</h3>
+        <p class="proj-sub">AI-Powered Data Analysis Assistant</p>
+        <p class="proj-desc">Built an intelligent exploratory data analysis platform that automatically analyze datasets, generate insights, visualize patterns, and explain trends through natural language interactions.</p>
+        <div class="proj-tags"><span class="proj-tag">LLM</span><span class="proj-tag">Data Analysis</span><span class="proj-tag">Pandas</span><span class="proj-tag">FastAPI</span><span class="proj-tag">OpenAI API</span></div>
+      </a>
+      <a class="proj-card fade-up" href="https://github.com/sheetalkothari13/Healthbot-Assistant" target="_blank" rel="noopener noreferrer">
+        <h3 class="proj-title">Healthbot Assistant</h3>
+        <p class="proj-sub">AI Healthcare Conversational Assistant</p>
+        <p class="proj-desc">Developed an AI-powered healthcare chatbot capable of assisting users with symptom guidance, health-related queries, and intelligent conversational.</p>
+        <div class="proj-tags"><span class="proj-tag">NLP</span><span class="proj-tag">LLM</span><span class="proj-tag">Python</span><span class="proj-tag">FastAPI</span><span class="proj-tag">Healthcare AI</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- <section id="achievements">
+  <div class="container">
+    <h2 class="section-title fade-up"><span>Achievements</span></h2>
+    <div class="ach-list">
+      <div class="ach-item fade-up">
+        <span class="ach-icon">🏆</span>
+        <p class="ach-text">Solved 500+ DSA problems across LeetCode, CodeChef, and Codeforces</p>
+      </div>
+      <div class="ach-item fade-up">
+        <span class="ach-icon">🥈</span>
+        <p class="ach-text">2nd Place in Code Marathon 2024 among 100+ participants</p>
+      </div>
+      <div class="ach-item fade-up">
+        <span class="ach-icon">📜</span>
+        <p class="ach-text">Certified Software Programmer — NSDC</p>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<section id="contact">
+  <div class="container">
+    <h2 class="section-title fade-up">Let's Build Something <span>Intelligent</span></h2>
+    <p class="contact-subtitle fade-up">Open to AI Engineering, GenAI, and Founding Engineer opportunities.</p>
+    <div class="contact-links fade-up">
+      <a href="https://outlook.office.com/mail/deeplink/compose?to=sheetal.kothari2003@gmail.com" target="_blank" class="contact-link">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        Email Me
+      </a>
+      <a href="https://www.linkedin.com/in/13-sheetal-kothari/" target="_blank" class="contact-link">
+        <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/sheetalkothari13" target="_blank" class="contact-link">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a href="https://drive.google.com/file/d/1_rpn4rr3Nu9Dj42kVmDiGsvF2O86a7Ur/view?usp=sharing" target="_blank" class="contact-link btn-primary" style="border:none;background:linear-gradient(135deg,#ff7a18,#ff9a4a);color:#000;font-weight:700">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        View My Resume
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Sheetal Kothari</p>
+</footer>
+
+<script>
+(function(){
+  const portrait = document.getElementById('heroImg');
+  const aboutImg = document.getElementById('aboutImg');
+  const heroBg = document.getElementById('heroBg');
+
+  const imgSrc = 'assets/sheetal.jpeg';
+  fetch(imgSrc).then(r=>r.blob()).then(blob=>{
+    const url = URL.createObjectURL(blob);
+    if(portrait) portrait.src = url;
+    if(aboutImg) aboutImg.src = url;
+    if(heroBg) heroBg.style.backgroundImage = `url(${url})`;
+  }).catch(()=>{
+    if(portrait) portrait.style.background = 'linear-gradient(135deg,#1a1a2e,#16213e)';
+    if(aboutImg) aboutImg.style.background = 'linear-gradient(135deg,#1a1a2e,#16213e)';
+  });
+
+  // Staggered section reveal
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.style.transitionDelay = `${entry.target.dataset.delay || 0}ms`;
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.12});
+  document.querySelectorAll('.fade-up').forEach((el, i)=>{ el.dataset.delay = i * 40; observer.observe(el); });
+
+  // Stat count-up
+  const statEls = document.querySelectorAll('.stat-num');
+  const statsObserver = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if(!entry.isIntersecting) return;
+      const el = entry.target;
+      const raw = el.textContent.trim();
+      let target = raw.replace(/[+,]/g,'');
+      let suffix = '';
+      if(/B/.test(target)){ suffix='B'; target = target.replace(/B/,''); }
+      const num = parseFloat(target) || 0;
+      const duration = 900;
+      const start = performance.now();
+      function step(ts){
+        const t = Math.min(1,(ts-start)/duration);
+        const current = Math.floor(num * t);
+        el.textContent = suffix ? current + suffix + '+' : current + (raw.includes('+')?'+':'');
+        if(t<1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+      obs.unobserve(el);
+    });
+  }, {threshold:0.2});
+  statEls.forEach(s=>statsObserver.observe(s));
+
+  // Scroll progress
+  const progressBar = document.querySelector('.scroll-progress');
+  function onScroll(){
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = total>0 ? (window.scrollY / total) * 100 : 0;
+    if(progressBar) progressBar.style.width = progress + '%';
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // Cursor glow
+  const glow = document.querySelector('.cursor-glow');
+  window.addEventListener('mousemove', (e)=>{
+    if(!glow) return;
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+  });
+
+  // Network canvas animation
+  const canvas = document.getElementById('network');
+  if(canvas && canvas.getContext){
+    const ctx = canvas.getContext('2d');
+    function resize(){ canvas.width = canvas.clientWidth || window.innerWidth; canvas.height = canvas.clientHeight || window.innerHeight; }
+    resize(); window.addEventListener('resize', resize);
+    const points = [];
+    for(let i=0;i<60;i++){
+      points.push({ x:Math.random()*canvas.width, y:Math.random()*canvas.height, vx:(Math.random()-0.5)*0.4, vy:(Math.random()-0.5)*0.4 });
+    }
+    function animate(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      points.forEach(p=>{
+        p.x += p.vx; p.y += p.vy;
+        if(p.x<0||p.x>canvas.width) p.vx*=-1;
+        if(p.y<0||p.y>canvas.height) p.vy*=-1;
+        ctx.fillStyle='rgba(255,122,24,0.7)'; ctx.beginPath(); ctx.arc(p.x,p.y,1.5,0,Math.PI*2); ctx.fill();
+      });
+      for(let a=0;a<points.length;a++){
+        for(let b=a+1;b<points.length;b++){
+          const dx = points[a].x - points[b].x; const dy = points[a].y - points[b].y; const dist = Math.sqrt(dx*dx + dy*dy);
+          if(dist < 120){ ctx.strokeStyle = `rgba(255,122,24,${1-dist/120})`; ctx.lineWidth = 0.5; ctx.beginPath(); ctx.moveTo(points[a].x, points[a].y); ctx.lineTo(points[b].x, points[b].y); ctx.stroke(); }
+        }
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+  }
+
+})();
+</script>
+  <div class="cursor-glow"></div>
+</body>
+</html>
