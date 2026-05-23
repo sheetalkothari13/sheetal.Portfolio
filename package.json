@@ -4,6 +4,6 @@
   "private": true,
   "scripts": {
     "deploy": "vercel --prod",
-    "start": "echo 'Open sheetal_kothari_portfolio.html in browser'"
+    "start": "echo 'Open index.html in browser'"
   }
 }
